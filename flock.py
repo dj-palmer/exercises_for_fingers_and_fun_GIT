@@ -1,12 +1,15 @@
 #!/usr/bin/python
 
-# Grouping sheep
+#==============
+#Grouping sheep
+#==============
 # 
 # Setup:
-# Order the co-ordinates of your sheep.
-# Specify a start point to start grouping from (or assume start point is centre of the field).
+#   Order the co-ordinates of your sheep.
+#   Specify a start point to start grouping from (or assume start point is centre of the field).
 #
-# Algorithm: To group the sheep into pens P(i) of size x by y
+# Algorithm: 
+#   To group the sheep into pens P(i) of size x by y
 #			1. From the start point, group sheep within x/2 horizontal and y/2 vertical distance - pen P(1). 
 # 			2. Get the next sheep S in your ordered list... that has not been grouped, but is closest to the centre of the current pen P(i). Sheep S will sit in the next pen P(i+1)
 #			3. Identify if sheep S is above, below, to left or to right of Pen P(i).

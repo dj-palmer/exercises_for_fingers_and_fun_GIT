@@ -106,7 +106,7 @@ class Node(object):
 	def print_me(self) :
 		"""
 			Prints out the key, values and parent key of the current node.
-			Be default prints the root node.
+			By default prints the root node.
 		"""
 		print ("key: " + str(self._key), "value: " + str(self._value), "parent: " + str(self._parentKey))
 
