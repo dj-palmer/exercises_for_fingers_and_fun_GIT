@@ -16,9 +16,9 @@ class Node(object):
 		""" 
 		self._key = key
 		self._value = value
-		self._leftChild = None	 # left node
-		self._rightChild = None  # right node
-		self._parentKey = None   # parent reference
+		self._leftChild = None       # left node
+		self._rightChild = None	     # right node
+		self._parentKey = parentKey # parent reference
 
 	def insert(self, key, value=None):
 		
@@ -26,13 +26,13 @@ class Node(object):
 			if self._leftChild is None :
 				self._leftChild = Node(key, value, self._key)
 			else :
-				self._leftChild.insert(key, value, _leftChild._key)
+				self._leftChild.insert(key, value)
 		
 		elif key > self._key :
 			if self._rightChild is None :
 				self._rightChild = Node(key, value, self._key)
 			else :
-				self._rightChild.insert(key, value, _rightChild._key)
+				self._rightChild.insert(key, value)
 
 
 	def print_tree(self) :
