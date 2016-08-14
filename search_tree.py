@@ -20,6 +20,16 @@ class Node(object):
 		self._rightChild = None	     # right node
 		self._parentKey = parentKey # parent reference
 
+	def populate(self) :
+		self.insert(5,"five")
+		self.insert(3,"three")
+		self.insert(9,"nine")
+		self.insert(15,"fifteen")
+		self.insert(13,"thirteen")
+		self.insert(1,"one")
+		self.insert(2,"two")
+		self.insert(4,"four")
+
 	def insert(self, key, value=None):
 		
 		if key < self._key :
@@ -37,17 +47,17 @@ class Node(object):
 
 	def print_tree(self) :
 
-		print ("key: " + str(self._key), "value: " + str(self._value), "parent: " + str(self._parentKey))
-
 		if self._leftChild :
 			self._leftChild.print_tree()
+
+		print ("key: " + str(self._key), "value: " + str(self._value), "parent: " + str(self._parentKey))
 
 		if self._rightChild :
 			self._rightChild.print_tree()
 
 """
 def main():
-	print("hello world")
+
 
 if __name__ == "__main__":
 	main()
