@@ -21,33 +21,6 @@ class Node(object):
 		self._rightChild = None	     # right node
 		self._parentKey = parentKey # parent reference
 
-	def populateIntegerKeys(self):
-		
-		""" Just some prepopulated values to get us started """ 
-		
-		self.insert(10,"ten")		
-		self.insert(5,"five")
-		self.insert(3,"three")
-		self.insert(9,"nine")
-		self.insert(15,"fifteen")
-		self.insert(13,"thirteen")
-		self.insert(1,"one")
-		self.insert(2,"two")
-		self.insert(4,"four")
-
-	def populateWordKeys(self):
-		
-		""" Just some prepopulated values to get us started """ 
-		self.insert(Key("ten"),"ten")		
-		self.insert(Key("five"),"five")
-		self.insert(Key("three"),"three")
-		self.insert(Key("nine"),"nine")
-		self.insert(Key("fifteen"),"fifteen")
-		self.insert(Key("thirteen"),"thirteen")
-		self.insert(Key("one"),"one")
-		self.insert(Key("two"),"two")
-		self.insert(Key("four"),"four")	
-
 	def insert(self, key, value=None):
 		
 		""" insert a node into the tree """
@@ -128,7 +101,52 @@ class Node(object):
 
 
 def main():
-	pass
+	
+	print "------------------------------------------------"
+	print "Creating a binary search tree of 10 integer keys"
+	print "------------------------------------------------"
+	
+	tree1 = Node()
+		
+
+	tree1.insert(10,"ten")		
+	tree1.insert(5,"five")
+	tree1.insert(3,"three")
+	tree1.insert(9,"nine")
+	tree1.insert(15,"fifteen")
+	tree1.insert(13,"thirteen")
+	tree1.insert(1,"one")
+	tree1.insert(2,"two")
+	tree1.insert(4,"four")
+	tree1.insert(100, "hundred")
+
+	print " Your tree now looks like (smallest to largest): "
+	
+	tree1.print_tree()
+
+	tree2 = Node()
+	
+	print "------------------------------------------------"
+	print "Creating a binary search tree with  'word'  keys"
+	print "------------------------------------------------"
+	print "Bit of a random example..."
+	print "Creating a binary search tree with the key defined as the number of letters in the number"
+
+	tree2.insert(Key("ten"),"ten")		
+	tree2.insert(Key("five"),"five")
+	tree2.insert(Key("three"),"three")
+	tree2.insert(Key("nine"),"nine")
+	tree2.insert(Key("fifteen"),"fifteen")
+	tree2.insert(Key("thirteen"),"thirteen")
+	tree2.insert(Key("one"),"one")
+	tree2.insert(Key("two"),"two")
+	tree2.insert(Key("four"),"four")	
+	tree2.insert(Key("hundred"), "hundred")
+
+	print "Your tree now looks like (smallest to largest): "
+
+	tree2.print_tree()
+
 
 if __name__ == "__main__":
 	main()
