@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import pdb
+from key import Key
 
 """ Implementation of a binary search tree """
 
@@ -11,7 +12,7 @@ class Node(object):
 		""" Root node constructor
 
 			@param key: a key to refer to the node by
-			@param value: data to store under the node
+			@param value: data value to store under the node
 
 		""" 
 		self._key = key 
@@ -20,7 +21,7 @@ class Node(object):
 		self._rightChild = None	     # right node
 		self._parentKey = parentKey # parent reference
 
-	def populate(self) :
+	def populateIntegerKeys(self):
 		
 		""" Just some prepopulated values to get us started """ 
 		
@@ -34,38 +35,46 @@ class Node(object):
 		self.insert(2,"two")
 		self.insert(4,"four")
 
+	def populateWordKeys(self):
+		
+		""" Just some prepopulated values to get us started """ 
+		self.insert(Key("ten"),"ten")		
+		self.insert(Key("five"),"five")
+		self.insert(Key("three"),"three")
+		self.insert(Key("nine"),"nine")
+		self.insert(Key("fifteen"),"fifteen")
+		self.insert(Key("thirteen"),"thirteen")
+		self.insert(Key("one"),"one")
+		self.insert(Key("two"),"two")
+		self.insert(Key("four"),"four")	
+
 	def insert(self, key, value=None):
 		
-		""" insert a node into the tree
-
-			@param key: a key to refer to the node by
-			@param value: data to store under the node
-		"""
+		""" insert a node into the tree """
 
 		if self._key : 
-			if key < self._key :
+			
+			if key == self._key :
+				print "Failed to insert node, key already exists"
+			elif key < self._key :
 				if self._leftChild is None :
 					self._leftChild = Node(key, value, self._key)
 				else :
 					self._leftChild.insert(key, value)
-			
 			elif key > self._key :
 				if self._rightChild is None :
 					self._rightChild = Node(key, value, self._key)
 				else :
 					self._rightChild.insert(key, value)
 			else :
-				print "Failed to insert node, key already exists"
+				print "Warning : Something has gone catastrophically wrong!"
 		else :  # we didn't have any root node so setup the roots key and value
 			self._key = key
 			self._value = value
 
 	def getNode(self, key):
 
-		""" returns the node object referenced by key
-
-			@param key: key of node to return
-		"""
+		""" returns the node object referenced by key """
 		
 		errMsg = "Sorry, can't find a node with your key"
 		
@@ -85,10 +94,7 @@ class Node(object):
 			print "Warning : Something has gone catastrophically wrong!"
 
 	def getNodeValue(self, key):
-		""" returns the data value stored under the node referenced by key 
-
-			@param key: key of node to return
-		"""
+		""" returns the data value stored under the node referenced by key """
 
 		result = self.getNode(key)._value
 		print "Returning " + str(result)
@@ -96,21 +102,17 @@ class Node(object):
 		return result
 
 	def setNode(self,key,value):
-		""" store a value under the node referenced by key 
-
-			@param key: key of node to return
-			@param value: value to store (any data type can be stored)
-		"""
+		""" store a value under the node referenced by key """
 		self.getNode(key)._value = value
 
-	def print_me(self) :
+	def print_me(self):
 		"""
 			Prints out the key, values and parent key of the current node.
 			By default prints the root node.
 		"""
 		print ("key: " + str(self._key), "value: " + str(self._value), "parent: " + str(self._parentKey))
 
-	def print_tree(self) :
+	def print_tree(self):
 		""" 
 			Prints out the list of tree nodes and their parents.
 			Ordered from smallest to largest leaves.
@@ -124,11 +126,9 @@ class Node(object):
 		if self._rightChild :
 			self._rightChild.print_tree()
 
-"""
-def main():
 
+def main():
+	pass
 
 if __name__ == "__main__":
 	main()
-
-"""
