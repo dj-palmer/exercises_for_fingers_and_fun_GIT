@@ -48,7 +48,7 @@ import pdb
 
 class Flock(object):
 	
-	sheep = [(1,1),(2,3),(4.9,5.9),(5,6),(6,6),(2,2)]
+	sheep = [(-0.1,-0.1),(-1,-1),(1,1),(2,3),(4.9,5.9),(5,6),(6,6),(2,2)]
 
 	def __init__(self, start_point=None, pen_size=(1,1)):
 
@@ -63,11 +63,11 @@ def main():
 	group_sheep()
 
 def distance(coord1,coord2):
-	return ((coord2[0]**2-coord2[0]**2) + (coord2[1]**2-coord2[1]**2)) ** 1/(2.0)
+	return ( (abs(coord2[0]-coord1[0])**2 + abs(coord2[1]-coord1[1])**2) ** (1/(2.0)) )
 
 def group_sheep():
 	
-	flock = Flock(pen_size=(3,3))
+	flock = Flock(pen_size=(1,1))
 	flock.sheep.sort()
 	ordered_sheep = flock.sheep
 	start_point = flock.start_point
@@ -77,7 +77,7 @@ def group_sheep():
 	pen_distY_var = flock.pen_size[1]/2.0
 	pens=[]
 	cur_pen=[]
-	cur_pen_num=1
+	cur_pen_num=0
 	
 	# First pass set the first pen
 	for x,y in ordered_sheep :
@@ -85,7 +85,9 @@ def group_sheep():
 			cur_pen.append((x,y))
 	
 	# recording the group and get ready for the next pen		
-	pens.append({"Pen%s" % (cur_pen_num) : cur_pen})
+	if len(cur_pen) > 0 :
+		cur_pen_num = cur_pen_num + 1
+		pens.append({"Pen%s" % (cur_pen_num) : cur_pen})
 	
 	# remove our penned sheep
 	for sheep in cur_pen :
