@@ -73,13 +73,11 @@ def group_sheep():
 	start_point = flock.start_point
 	pen_distX = flock.pen_size[0]
 	pen_distY = flock.pen_size[1]
-	pen_distX_var = flock.pen_size[0]/2
-	pen_distY_var = flock.pen_size[1]/2
+	pen_distX_var = flock.pen_size[0]/2.0
+	pen_distY_var = flock.pen_size[1]/2.0
 	pens=[]
 	cur_pen=[]
 	cur_pen_num=1
-
-	pdb.set_trace()
 	
 	# First pass set the first pen
 	for x,y in ordered_sheep :
