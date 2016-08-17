@@ -52,33 +52,43 @@ class BinaryNode(object):
 		
 		errMsg = "Sorry, can't find a node with your key"
 		
-		if key < self._key :
+		if key == self._key :
+			return self
+		elif key < self._key :
 			if self._leftChild is not None :
 				return self._leftChild.getNode(key)
 			else :
 				print errMsg
+				return None
 		elif key > self._key :
 			if self._rightChild is not None :
 				return self._rightChild.getNode(key)
 			else :
 				print errMsg
-		elif key == self._key :
-			return self
+				return None
 		else :
 			print "Warning : Something has gone catastrophically wrong!"
 
 	def getNodeValue(self, key):
 		""" returns the data value stored under the node referenced by key """
 
-		result = self.getNode(key)._value
+		try :
+			result = self.getNode(key)._value
 		
-		if result :
 			print "Returning " + str(result)
 			return result
 
+		except AttributeError :
+			return None
+
 	def setNode(self,key,value):
 		""" store a value under the node referenced by key """
-		self.getNode(key)._value = value
+		
+		try :
+			self.getNode(key)._value = value
+
+		except AttributeError :
+			return None
 
 	def print_me(self):
 		"""
@@ -177,12 +187,12 @@ def main():
 	print " following keys in order :                            "
 	print " 10, 5, 3, 9, 15, 13, 1 ,2, 4, 100                    "
 	print "----------------------------------------------------- "
-	
+	print ""
 	
 	print "----------------------------------------------------- "
 	print "Creating a binary search tree with these integer keys "
 	print "----------------------------------------------------- "
-	
+
 	tree1 = BinaryNode()
 		
 	tree1.insert(10,"ten")		
@@ -197,7 +207,14 @@ def main():
 	tree1.insert(100, "hundred")
 
 	print " Your tree now looks like (smallest to largest): "
-	
+	tree1.print_tree()
+	print "\n Inserting key,value (14, \"fourteen\") : "
+	tree1.insert(14,"fourteen")
+	print " Your tree now looks like (smallest to largest): "
+	tree1.print_tree()
+	print "\n Updating value for key 14 to \"newfourteen\" "
+	tree1.setNode(14,"newfourteen")
+	print " Your tree now looks like (smallest to largest): "
 	tree1.print_tree()
 	
 	print "----------------------------------------------------- "
@@ -219,8 +236,16 @@ def main():
 	tree2.insert(Key("four"),"four")	
 	tree2.insert(Key("hundred"), "hundred")
 
-	print "Your tree now looks like (smallest to largest): "
-
+	print " Your tree now looks like (smallest to largest): "
+	tree2.print_tree()
+	print "\n Inserting key,value (Key(\"eleven\"), \"neweleven\") : "
+	tree2.insert(Key("eleven"),"eleven")
+	print " Your tree now looks like (smallest to largest): "
+	tree2.print_tree()
+	print "\n Updating value for key \"eleven\" to \"neweleven\" "
+	#pdb.set_trace()
+	tree2.setNode(Key("eleven"),"neweleven")
+	print " Your tree now looks like (smallest to largest): "
 	tree2.print_tree()
 
 	print "----------------------------------------------------- "
@@ -241,7 +266,14 @@ def main():
 	tree3.insert(100, "hundred")
 
 	print "Your tree now looks like (smallest to largest): "
-
+	tree3.print_tree()
+	print "\n Inserting key,value (14, \"fourteen\") : "
+	tree3.insert(14,"fourteen")
+	print " Your tree now looks like (smallest to largest): "
+	tree3.print_tree()
+	print "\n Updating value for key 14 to \"newfourteen\" "
+	tree3.setNode(14,"newfourteen")
+	print " Your tree now looks like (smallest to largest): "
 	tree3.print_tree()
 
 	print "------------------------------------------------"
