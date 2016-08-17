@@ -25,7 +25,7 @@
 
 # Things to consider where things go wrong!
 #	- When getting next sheep S there may be ones equidistant from the centre of the current Pen. Will need a way to chose which to select.
-#	  Currently just crudely select the pen above.
+#	  Currently just selects the first sheep we come to.
 #	- Sheep could be on the cusp of a pen - important not to miss / double-count
 #   - There may be no sheep in Pen(1), so we need a way of discounting this pen. 
 #   - Sheep could move!
@@ -90,7 +90,7 @@ def group_sheep():
 		pens.append({"Pen%s" % (cur_pen_num) : cur_pen})
 		
 		for sheep in cur_pen :
-		ordered_sheep.remove(sheep)
+			ordered_sheep.remove(sheep)
 	
 
 	# If we haven't caught all the sheep
