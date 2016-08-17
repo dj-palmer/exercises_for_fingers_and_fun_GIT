@@ -84,23 +84,25 @@ def group_sheep():
 		if ( abs(x-start_point[0]) <= pen_distX_var and abs(y-start_point[1]) <= pen_distY_var) :
 			cur_pen.append((x,y))
 	
-	# recording the group and get ready for the next pen		
+	# recording the group if we found sheep
 	if len(cur_pen) > 0 :
 		cur_pen_num = cur_pen_num + 1
 		pens.append({"Pen%s" % (cur_pen_num) : cur_pen})
-	
-	# remove our penned sheep
-	for sheep in cur_pen :
+		
+		for sheep in cur_pen :
 		ordered_sheep.remove(sheep)
+	
 
 	# If we haven't caught all the sheep
 	while len(ordered_sheep) > 0 :
 		
-		next_sheep = ordered_sheep[0]
 		cur_pen_num = cur_pen_num + 1
 		cur_pen = []
 
-		# now find the next closest sheep to the previous pen and try and group around it
+		# initially choose next sheep available but then we'll find the closest sheep to the previous pen
+		# so we can try and group around it
+		next_sheep = ordered_sheep[0] 
+		
 		for x,y in ordered_sheep :
 			if distance((x,y),start_point) < distance(next_sheep,start_point) :
 				next_sheep = (x,y)
@@ -126,7 +128,7 @@ def group_sheep():
 					if ( abs(x-next_sheep[0]) <= pen_distX and abs(y-next_sheep[1]) <= pen_distY_var) :
 						pen_right.append((x,y))
 		
-		# choose the pen we captured the most sheep in, and 
+		# choose the pen we captured the most sheep in, and move in that direction
 		for pen in pen_above, pen_below, pen_left, pen_right :
 			if len(pen) > len(cur_pen) :
 				cur_pen = pen
