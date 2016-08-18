@@ -67,9 +67,8 @@ def distance(coord1,coord2):
 
 def group_sheep():
 	
-	flock = Flock(pen_size=(1,1))
-	flock.sheep.sort()
-	ordered_sheep = flock.sheep
+	flock = Flock(start_point=(0,0),pen_size=(3,3))
+	my_sheep = flock.sheep
 	start_point = flock.start_point
 	pen_distX = flock.pen_size[0]
 	pen_distY = flock.pen_size[1]
@@ -80,7 +79,7 @@ def group_sheep():
 	cur_pen_num=0
 	
 	# First pass set the first pen
-	for x,y in ordered_sheep :
+	for x,y in my_sheep :
 		if ( abs(x-start_point[0]) <= pen_distX_var and abs(y-start_point[1]) <= pen_distY_var) :
 			cur_pen.append((x,y))
 	
@@ -90,20 +89,20 @@ def group_sheep():
 		pens.append({"Pen%s" % (cur_pen_num) : cur_pen})
 		
 		for sheep in cur_pen :
-			ordered_sheep.remove(sheep)
+			my_sheep.remove(sheep)
 	
 
 	# If we haven't caught all the sheep
-	while len(ordered_sheep) > 0 :
+	while len(my_sheep) > 0 :
 		
 		cur_pen_num = cur_pen_num + 1
 		cur_pen = []
 
 		# initially choose next sheep available but then we'll find the closest sheep to the previous pen
 		# so we can try and group around it
-		next_sheep = ordered_sheep[0] 
+		next_sheep = my_sheep[0] 
 		
-		for x,y in ordered_sheep :
+		for x,y in my_sheep :
 			if distance((x,y),start_point) < distance(next_sheep,start_point) :
 				next_sheep = (x,y)
 
@@ -112,7 +111,7 @@ def group_sheep():
 		pen_left = [next_sheep]
 		pen_right = [next_sheep]
 
-		for x,y in ordered_sheep :
+		for x,y in my_sheep :
 			# try a few different groupings dependent on whether the next sheep was above, below, left or right of where we were.
 			if (x,y) != next_sheep :
 				if next_sheep[1] > start_point[1]:
@@ -148,7 +147,7 @@ def group_sheep():
 
 		# remove our penned sheep
 		for sheep in cur_pen :
-			ordered_sheep.remove(sheep)
+			my_sheep.remove(sheep)
 		
 		#reset our start point and loop
 		start_point = next_point
