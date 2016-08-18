@@ -9,7 +9,7 @@
 #
 # Algorithm: 
 #   To group the sheep into pens P(i) of size x by y
-#			1. From the start point, group sheep within x/2 horizontal and y/2 vertical distance - pen P(1). 
+#			1. From the start point, group sheep within +/- x/2 horizontal and +/- y/2 vertical distance - pen P(1). 
 # 			2. Get the next sheep S in your list that has not been grouped, but is closest to the centre of the current pen P(i). Sheep S will sit in the next pen P(i+1)
 #			3. Identify if sheep S is above, below, to left or to right of Pen P(i).
 #			4. Try grouping in vicinity of S based on direction of S from Pen(i) and select group that maximises number of sheep
@@ -26,6 +26,7 @@
 # Things to consider where things go wrong!
 #	- When getting next sheep S there may be ones equidistant from the centre of the current Pen. Will need a way to chose which to select.
 #	  Currently just selects the first sheep we come to.
+#	- When looking at max number of elements in the Group we may have same size groups, need to handle.
 #	- Sheep could be on the cusp of a pen - important not to miss / double-count
 #   - There may be no sheep in Pen(1), so we need a way of discounting this pen. 
 #   - Sheep could move!
@@ -44,13 +45,14 @@
 #   - Does not account for sheep in 3D! 
 #	- Inefficient -- completes in time proportional to size of array
 
-import pdb
+# import pdb
 
 class Flock(object):
-	
-	sheep = [(-0.1,-0.1),(-1,-1),(1,1),(2,3),(4.9,5.9),(5,6),(6,6),(2,2)]
 
 	def __init__(self, start_point=None, pen_size=(1,1)):
+
+		# Define your sheep here!
+		self.sheep = [(-0.1,-0.1),(-1,-1),(1,1),(2,3),(4.9,5.9),(5,6),(6,6),(2,2)]
 
 		if start_point is not None :
 			self.start_point = start_point
@@ -60,14 +62,47 @@ class Flock(object):
 		self.pen_size = pen_size
 
 def main():
-	group_sheep()
+	
+	start_point = (0,0) 
+	pen_size = (3,3)
+	flock = Flock(start_point, pen_size)
+	
+	print "------------------------------------------- "
+	print " Grouping Algorithm for a Flock of Sheep    "
+	print "------------------------------------------- "
+	
+	print " Our sheeps co-ordinates : "
+	print flock.sheep
+	
+	print " \n Grouping starting nearby %s and with pen size %s by %s " % (start_point, pen_size[0], pen_size[1])
+	group_sheep(flock, start_point, pen_size)
+
+	# now try at centre of field
+	flock = Flock(pen_size=pen_size)
+	start_point = flock.start_point
+	
+	print " \n Grouping starting at centre of field %s and with pen size %s by %s " % (start_point, pen_size[0], pen_size[1])
+	group_sheep(flock, start_point, pen_size)
+	
+	# Repeat above but with different pen_size
+	pen_size = (1,3)
+	start_point = (0,0) 
+	flock = Flock(start_point, pen_size)
+	print " \n Grouping starting nearby %s and with pen size %s by %s " % (start_point, pen_size[0], pen_size[1])
+	group_sheep(flock, start_point, pen_size)
+	
+	flock = Flock(pen_size=pen_size)
+	start_point = flock.start_point
+
+	print " \n Grouping starting at centre of field %s and with pen size %s by %s " % (start_point, pen_size[0], pen_size[1])
+	group_sheep(flock, start_point, pen_size)
+	
 
 def distance(coord1,coord2):
 	return ( (abs(coord2[0]-coord1[0])**2 + abs(coord2[1]-coord1[1])**2) ** (1/(2.0)) )
 
-def group_sheep():
+def group_sheep(flock, start_point, pen_size):
 	
-	flock = Flock(start_point=(0,0),pen_size=(3,3))
 	my_sheep = flock.sheep
 	start_point = flock.start_point
 	pen_distX = flock.pen_size[0]
@@ -152,6 +187,7 @@ def group_sheep():
 		#reset our start point and loop
 		start_point = next_point
 
+	print " We found %s groups : " %( len(pens))
 	print pens
 
 if __name__ == "__main__":
