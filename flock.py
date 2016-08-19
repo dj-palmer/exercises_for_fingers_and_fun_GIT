@@ -47,13 +47,18 @@
 
 # import pdb
 
+from random import randint
+
 
 class Flock(object):
 
-    def __init__(self, start_point=None, pen_size=(1,1)):
+    def __init__(self, start_point=None, pen_size=(1,1), sheep=None):
 
         # Define your sheep here!
-        self.sheep = [(-0.1,-0.1),(-1,-1),(1,1),(2,3),(4.9,5.9),(5,6),(6,6),(2,2)]
+        if sheep is None :
+            self.sheep = [(-0.1,-0.1),(-1,-1),(1,1),(2,3),(4.9,5.9),(5,6),(6,6),(2,2)]
+        else :
+            self.sheep = sheep 
 
         if start_point is not None :
             self.start_point = start_point
@@ -64,9 +69,15 @@ class Flock(object):
 
 def main():
     
-    start_point = (0,0) 
-    pen_size = (3,3)
-    flock = Flock(start_point, pen_size)
+    start_point = tuple(float(x.strip()) for x in raw_input("Please enter start_point : (x,y) \n").split(','))
+    pen_size = tuple(float(x.strip()) for x in raw_input("Please enter pen_size : (x,y) \n").split(','))
+    number_of_sheep = int(raw_input("How many sheep in flock? \n"))
+    sheep=[]
+
+    for i in xrange(1 ,number_of_sheep + 1) :
+        sheep.append((randint(0,100), randint(0,100)))
+
+    flock = Flock(start_point, pen_size, sheep)
     
     print "------------------------------------------- "
     print " Grouping Algorithm for a Flock of Sheep    "
@@ -76,26 +87,6 @@ def main():
     print flock.sheep
     
     print " \n Grouping starting nearby %s and with pen size %s by %s " % (start_point, pen_size[0], pen_size[1])
-    group_sheep(flock, start_point, pen_size)
-
-    # now try at centre of field
-    flock = Flock(pen_size=pen_size)
-    start_point = flock.start_point
-    
-    print " \n Grouping starting at centre of field %s and with pen size %s by %s " % (start_point, pen_size[0], pen_size[1])
-    group_sheep(flock, start_point, pen_size)
-    
-    # Repeat above but with different pen_size
-    pen_size = (1,3)
-    start_point = (0,0) 
-    flock = Flock(start_point, pen_size)
-    print " \n Grouping starting nearby %s and with pen size %s by %s " % (start_point, pen_size[0], pen_size[1])
-    group_sheep(flock, start_point, pen_size)
-    
-    flock = Flock(pen_size=pen_size)
-    start_point = flock.start_point
-
-    print " \n Grouping starting at centre of field %s and with pen size %s by %s " % (start_point, pen_size[0], pen_size[1])
     group_sheep(flock, start_point, pen_size)
     
 def distance(coord1,coord2):
